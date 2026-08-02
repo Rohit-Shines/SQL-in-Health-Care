@@ -1,0 +1,7 @@
+807bde0ec68fd94a7c50e96fb80a84ac0634b845b4a1c54f06d198704640eb52  ./START-HERE.md
+e1c9812f240658e863c9c338b7d9fbd3b9ffeb2a58c762a980f6225e572902cf  ./VERSION.txt
+7d892821aa51b9b1d77745d4d70b67518c155daa1b93150bcaee1de292c76675  ./Windows/MySQL-Mirth-Setup.bat
+ded00ab125c4fb2a16dd0cf711226d790283babf0cac638dec1bd4fe08c5dbc6  ./Windows/mysql_mirth_setup.ps1
+04a5a26f4f69b59c8ef8ee828c597d96480d4ef25d22522a3e318187d007a87d  ./macOS/MySQL-Mirth-Setup.command
+7190fd5eabec6d3e4969f2241eb7acb13bdc2cf3143e35cd70dabe2bbd89d854  ./macOS/mysql_mirth_setup.sh
+0e96850db63168992427b566b00af04346cb1c69147d9c637f57a8cce567a669  ./sql/verify-installation.sql
