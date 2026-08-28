@@ -1,0 +1,168 @@
+Real-Time Office Scenarios
+
+This is the part that will make your video more interesting.
+
+Scenario 1 — Registration Team
+Question
+
+“The registration manager asks: Which patient record was added earliest to our training database?”
+
+SQL Answer
+SELECT TOP (1)
+    PatientID,
+    FirstName,
+    LastName,
+    CreatedAt
+FROM dbo.Patient
+ORDER BY CreatedAt ASC, PatientID ASC;
+GO
+Explain
+
+“We sort the registration timestamp from oldest to newest and return only the first record.”
+
+Scenario 2 — Support Team
+Question
+
+“The support analyst asks: What is the most recently created patient record?”
+
+SQL Answer
+SELECT TOP (1)
+    PatientID,
+    FirstName,
+    LastName,
+    CreatedAt
+FROM dbo.Patient
+ORDER BY CreatedAt DESC, PatientID DESC;
+GO
+Business use
+
+A support analyst may use a query like this when validating whether a recent registration reached the database.
+
+Scenario 3 — Hospital Admissions
+Question
+
+“The hospital operations team asks: What is the most recent encounter admitted into the system?”
+
+Use your Encounter table:
+
+SELECT TOP (1)
+    EncounterID,
+    PatientID,
+    VisitNumber,
+    PatientClass,
+    ServiceCode,
+    AdmitDateTime
+FROM dbo.Encounter
+ORDER BY AdmitDateTime DESC, EncounterID DESC;
+GO
+
+This is a much more realistic hospital-office example.
+
+Explain:
+
+“Here FIRST and LAST are no longer based on PatientID. They are based on the admission timestamp.”
+
+Scenario 4 — Interface Support / Mirth Connect
+Question
+
+“The interface support team asks: What is the latest HL7 interface message received?”
+
+SELECT TOP (1)
+    InterfaceMessageID,
+    ChannelName,
+    MessageType,
+    MessageControlID,
+    SourceSystem,
+    DestinationSystem,
+    ReceivedDateTime,
+    ProcessingStatus
+FROM dbo.InterfaceMessage
+ORDER BY ReceivedDateTime DESC, InterfaceMessageID DESC;
+GO
+
+This is an excellent real-time healthcare integration scenario.
+
+Explain:
+
+“As an interface analyst, I may need to quickly verify the latest message received from Epic, Cerner, MEDITECH, or another system.”
+
+Scenario 5 — QA Testing
+Question
+
+“The QA team asks for five random patient records for testing. How can we retrieve them?”
+
+SELECT TOP (5)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    CountryOfBirth
+FROM dbo.Patient
+ORDER BY NEWID();
+GO
+
+Explain:
+
+“The QA analyst doesn't care which five patients are returned. They just want a random sample of synthetic records for testing.”
+
+Scenario 6 — Random HL7 Message for Testing
+Question
+
+“A Mirth developer wants one random interface message to test a transformer. How can we retrieve one?”
+
+SELECT TOP (1)
+    InterfaceMessageID,
+    MessageType,
+    MessageControlID,
+    SourceSystem,
+    DestinationSystem,
+    ProcessingStatus
+FROM dbo.InterfaceMessage
+ORDER BY NEWID();
+GO
+
+This connects SQL directly to your healthcare integration audience.
+
+Best Comparison to Show
+Requirement	SQL Server Approach
+First record	TOP (1) + ORDER BY ... ASC
+Last record	TOP (1) + ORDER BY ... DESC
+Random record	TOP (1) + ORDER BY NEWID()
+Random 5 records	TOP (5) + ORDER BY NEWID()
+Easy memory trick
+FIRST
+→ ASC
+→ TOP 1
+
+LAST
+→ DESC
+→ TOP 1
+
+RANDOM
+→ NEWID()
+→ TOP 1
+Important Interview Point
+
+Tell the audience this:
+
+“A SQL table does not inherently have a meaningful first or last row. We have to define what ‘first’ or ‘last’ means by using ORDER BY.”
+
+For example:
+
+ORDER BY PatientID ASC
+
+means first by ID.
+
+But:
+
+ORDER BY CreatedAt ASC
+
+means earliest by creation time.
+
+And:
+
+ORDER BY AdmitDateTime DESC
+
+means most recently admitted encounter.
+
+That is a very important SQL concept.
