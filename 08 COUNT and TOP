@@ -1,0 +1,252 @@
+Start with your database:
+
+USE HealtchareDatabse;
+GO
+
+Explain:
+
+“Before running our SQL queries, I am selecting the healthcare database that contains our Patient table.”
+
+Part 1 — What is COUNT in SQL?
+
+Start with the simplest query:
+
+SELECT COUNT(*)
+FROM dbo.Patient;
+GO
+
+Explain very slowly:
+
+SELECT     → I want SQL Server to return something
+COUNT      → Count something
+(*)        → Count all rows
+FROM       → Where should SQL look?
+dbo.Patient → Patient table
+
+Simple explanation:
+
+“COUNT(*) tells SQL Server to count how many rows exist in the Patient table.”
+
+You can use a hospital analogy:
+
+“Imagine a hospital database has hundreds or thousands of patients. Instead of scrolling through every patient record and manually counting them, SQL can calculate the total immediately.”
+
+Give the result a meaningful name
+
+Run:
+
+SELECT COUNT(*) AS TotalPatients
+FROM dbo.Patient;
+GO
+
+Explain AS simply:
+
+“Instead of SQL showing a column with no meaningful heading, I am giving the result a friendly name called TotalPatients.”
+
+Concept:
+
+COUNT(*) AS TotalPatients
+           ↑
+           Friendly result column name
+COUNT a Specific Column
+
+Now run:
+
+SELECT COUNT(CountryOfBirth) AS PatientsWithCountryOfBirth
+FROM dbo.Patient;
+GO
+
+Explain an important difference:
+
+“COUNT(*) counts rows. But when I give COUNT a particular column, SQL counts the non-NULL values in that column.”
+
+Very simple comparison:
+
+COUNT(*)                 → Counts rows
+COUNT(CountryOfBirth)    → Counts non-NULL CountryOfBirth values
+
+Don't go too deeply into NULL yet. Tell viewers you will cover NULL properly later.
+
+Count Unique Values
+
+Since your previous video explained DISTINCT, this is a nice connection:
+
+SELECT COUNT(DISTINCT CountryOfBirth) AS TotalCountries
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“Previously, we used DISTINCT to display unique countries. Now I can combine COUNT and DISTINCT to find how many different countries exist.”
+
+Breakdown:
+
+COUNT
+  ↓
+Count
+
+DISTINCT
+  ↓
+Unique values
+
+CountryOfBirth
+  ↓
+Column
+
+So:
+
+COUNT(DISTINCT CountryOfBirth)
+
+means:
+
+“Count how many unique countries exist.”
+
+Part 2 — What is TOP in SQL Server?
+
+First remind viewers what this does:
+
+SELECT *
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“This can return every patient in our Patient table.”
+
+Now introduce:
+
+SELECT TOP (10) *
+FROM dbo.Patient;
+GO
+
+Explain:
+
+SELECT     → Retrieve data
+TOP (10)   → Return only 10 rows
+*          → All columns
+FROM       → From
+dbo.Patient → Patient table
+
+Say:
+
+“TOP does not delete any patients. It only limits how many rows SQL Server returns to us.”
+
+TOP with Specific Columns
+
+This will look much cleaner on your screen:
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“I am combining two things we already learned. I am selecting only the columns I need, and TOP limits the output to ten patients.”
+
+Change TOP 10 to TOP 5
+
+Show beginners that the number is adjustable:
+
+SELECT TOP (5)
+    PatientID,
+    FirstName,
+    LastName,
+    CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Then:
+
+SELECT TOP (20)
+    PatientID,
+    FirstName,
+    LastName,
+    CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“TOP is not permanently fixed at 10. I can request TOP 5, TOP 10, TOP 20, TOP 100, depending on what I need.”
+
+Important TOP Concept
+
+At the end, mention one important professional point:
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName
+FROM dbo.Patient;
+GO
+
+Without sorting, SQL Server is simply being asked for 10 qualifying rows.
+
+So don't tell students:
+
+“TOP 10 means the first 10 patients forever.”
+
+Instead say:
+
+“TOP limits the result to 10 rows. Later, when we learn ORDER BY, we will control exactly which 10 rows we want—for example, newest patients or oldest patients.”
+
+Then you can briefly demonstrate:
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName
+FROM dbo.Patient
+ORDER BY PatientID;
+GO
+
+But don't deeply explain ORDER BY; save it for its own video.
+
+Final Practice Queries
+Practice 1 — Total patients
+SELECT COUNT(*) AS TotalPatients
+FROM dbo.Patient;
+GO
+Practice 2 — Unique countries
+SELECT COUNT(DISTINCT CountryOfBirth) AS TotalCountries
+FROM dbo.Patient;
+GO
+Practice 3 — Show only 10 patients
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+Final Explanation
+
+Finish the video with:
+
+“COUNT answers how many? TOP answers how many rows do I want SQL Server to display? COUNT gives me a calculated number, while TOP limits the actual records returned.”
+
+Use this easy comparison:
+
+SQL	Purpose	Example
+COUNT(*)	Count all rows	How many patients?
+COUNT(Column)	Count non-NULL values	How many patients have CountryOfBirth?
+COUNT(DISTINCT Column)	Count unique values	How many different countries?
+TOP (5)	Return only 5 rows	Show 5 patients
+TOP (10)	Return only 10 rows	Show 10 patients
+YouTube Title
+
+SQL COUNT & TOP Explained for Beginners | Count Rows & Limit Results | SQL in Healthcare #8
+
+Alternative:
+
+What are COUNT and TOP in SQL? | SQL Server Beginner Tutorial with Patient Data | Healthcare SQL #8
+
+I recommend the first title.
