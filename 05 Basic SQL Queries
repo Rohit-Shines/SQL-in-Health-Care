@@ -1,0 +1,86 @@
+Step 1 — View the Patient table
+USE HealtchareDatabse;
+GO
+
+SELECT TOP (10) *
+FROM dbo.Patient;
+GO
+
+Explain:
+
+SELECT = what data you want
+* = all columns
+FROM = which table
+TOP (10) = show only first 10 records
+dbo.Patient = Patient table inside the database
+Step 2 — Show only important patient columns
+
+Instead of displaying every column:
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    GenderIdentity,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+This is a very good example for teaching why we normally select specific columns instead of SELECT *.
+
+You can explain:
+
+“The Patient table contains many columns. If I only need basic patient demographic information, I can specify exactly which columns SQL should return.”
+
+Step 3 — Find the different countries in the database
+SELECT DISTINCT
+    CountryOfBirth
+FROM dbo.Patient
+ORDER BY CountryOfBirth;
+GO
+
+Explain:
+
+DISTINCT removes duplicate values.
+Even though there are many patients, each country appears only once.
+ORDER BY displays the countries alphabetically.
+
+For example, instead of:
+
+Canada
+India
+Canada
+USA
+India
+Canada
+
+you get:
+
+Canada
+India
+USA
+Your Video #5 flow
+1. USE HealtchareDatabse
+          ↓
+2. SELECT DB_NAME()
+          ↓
+3. SELECT TOP (10) *
+          ↓
+4. SELECT specific patient columns
+          ↓
+5. SELECT DISTINCT CountryOfBirth
+
+I recommend stopping Video #5 here.
+
+For Video #6, you can naturally continue with:
+
+WHERE
+ORDER BY
+AND
+OR
+IN
+BETWEEN
+
+using healthcare examples such as patients from Canada, patients born after a certain year, citizenship, gender, and age groups.
