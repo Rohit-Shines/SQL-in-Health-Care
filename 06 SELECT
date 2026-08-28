@@ -1,0 +1,368 @@
+Video #6 — What is SELECT in SQL?
+
+Your goal is for a complete beginner to understand:
+
+SELECT = What data do I want to see?
+FROM   = Where should SQL get that data from?
+1. Start by selecting your database
+
+Run:
+
+USE HealtchareDatabse;
+GO
+
+Explain slowly:
+
+“Before running queries, I need to tell SQL Server which database I want to work with. Our database name is HealtchareDatabse.”
+
+Then verify:
+
+SELECT DB_NAME() AS CurrentDatabase;
+GO
+
+Explain:
+
+“Here I am already using SELECT. I am asking SQL Server to SELECT and display the name of my current database.”
+
+Expected result:
+
+CurrentDatabase
+-----------------
+HealtchareDatabse
+2. What exactly is SELECT?
+
+Write only:
+
+SELECT
+
+Explain:
+
+“SELECT is one of the most frequently used commands in SQL. We use SELECT whenever we want to retrieve or display information.”
+
+Simple analogy:
+
+Excel:
+I want to look at some columns.
+
+SQL:
+SELECT those columns.
+
+Healthcare example:
+
+“Imagine a hospital database has 1,200 patients. I don't always need all patient information. Maybe I only need the patient's name, date of birth, or country. SELECT allows me to choose exactly what information I want.”
+
+3. First real SELECT query
+
+Run:
+
+SELECT *
+FROM dbo.Patient;
+GO
+
+Explain each piece separately.
+
+SELECT
+SELECT
+
+Means:
+
+“Give me data.”
+
+*
+*
+
+Means:
+
+“Give me every column.”
+
+FROM
+FROM
+
+Means:
+
+“Where should SQL retrieve the data from?”
+
+dbo.Patient
+dbo.Patient
+
+Means:
+
+“Retrieve the data from the Patient table.”
+
+So:
+
+SELECT *
+FROM dbo.Patient;
+
+means:
+
+“Show me every column from every patient in the Patient table.”
+
+4. Explain dbo.Patient
+
+This is useful for beginners.
+
+dbo.Patient
+│   │
+│   └── Table Name
+│
+└────── Schema
+
+Explain:
+
+“Patient is our table name. dbo is the schema that contains the table.”
+
+You don't need to explain schemas deeply yet.
+
+Just say:
+
+“For now, think of dbo.Patient as the complete name of our Patient table.”
+
+5. Problem with SELECT *
+
+Show the result grid.
+
+Explain:
+
+“Our Patient table contains many columns. SELECT star gives me everything, but most of the time I don't need everything.”
+
+For example:
+
+PatientID
+EnterpriseMRN
+FacilityMRN
+FirstName
+MiddleName
+LastName
+FullName
+DateOfBirth
+AgeYears
+GenderIdentity
+CountryOfBirth
+Citizenship
+...
+
+Then explain:
+
+“Instead of retrieving all these columns, SQL allows me to select only the columns I actually need.”
+
+6. Select one column
+
+Run:
+
+SELECT FirstName
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“Now I am not using star. I specifically told SQL that I only want FirstName.”
+
+Point out the result contains only:
+
+FirstName
+---------
+Aarav
+Emily
+Rohan
+Sophia
+...
+
+Very important explanation:
+
+SELECT FirstName
+       ↑
+       What I want
+
+FROM dbo.Patient
+     ↑
+     Where I want it from
+7. Select two columns
+
+Now build it slowly.
+
+SELECT
+    FirstName,
+    LastName
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“When I need multiple columns, I separate the column names using commas.”
+
+Emphasize:
+
+FirstName,
+
+has a comma because another column follows it.
+
+But:
+
+LastName
+
+doesn't need a comma because it is the final column.
+
+8. Select useful healthcare columns
+
+Now move to a realistic example:
+
+SELECT
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“Now imagine somebody asks me for a simple patient demographic report. I only need the patient's ID, first name, last name, and date of birth.”
+
+This is where SQL becomes more realistic.
+
+9. Add country information
+
+Run:
+
+SELECT
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“I can continue adding columns depending on the information I need.”
+
+Now compare:
+
+SELECT *
+SELECT *
+FROM dbo.Patient;
+
+versus:
+
+Specific columns
+SELECT
+    PatientID,
+    FirstName,
+    LastName,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+
+Tell viewers:
+
+“Both are valid SQL. But selecting only the required columns usually makes the results easier to read and is better practice when you know exactly what information you need.”
+
+10. Show that SELECT controls column order
+
+This is a very good beginner concept.
+
+First run:
+
+SELECT
+    PatientID,
+    FirstName,
+    LastName,
+    CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Then change it:
+
+SELECT
+    CountryOfBirth,
+    LastName,
+    FirstName,
+    PatientID
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“Notice something important. SQL displays the columns in the same order that I write them in my SELECT statement.”
+
+So:
+
+SELECT order
+        ↓
+
+CountryOfBirth
+LastName
+FirstName
+PatientID
+
+becomes the output order.
+
+This directly demonstrates why you reorganized the healthcare database for teaching.
+
+11. Introduce TOP only at the end
+
+Because the Patient table has many records, finish with:
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“I still use SELECT exactly the same way. TOP 10 simply tells SQL Server that I only want the first ten rows returned.”
+
+Very simple breakdown:
+
+SELECT      → Retrieve data
+TOP (10)    → Return only 10 rows
+Columns     → Information I need
+FROM        → Which table
+dbo.Patient → Patient table
+Final query for the video
+
+I would finish Video #6 with this:
+
+USE HealtchareDatabse;
+GO
+
+SELECT TOP (10)
+    PatientID,
+    FirstName,
+    LastName,
+    DateOfBirth,
+    AgeYears,
+    GenderIdentity,
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+Then summarize verbally:
+
+“Today we learned that SELECT is used to retrieve information from SQL Server. We learned SELECT star for all columns, selecting individual columns, selecting multiple columns, changing the display order of columns, and using TOP to limit the number of rows.”
+
+Keep these for later videos
+
+Do not explain these yet:
+
+WHERE
+ORDER BY
+DISTINCT
+AND
+OR
+IN
+BETWEEN
+LIKE
+GROUP BY
+JOIN
+
+That gives you several future videos instead of putting too much into one lesson.
