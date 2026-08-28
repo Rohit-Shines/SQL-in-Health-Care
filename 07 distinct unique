@@ -1,0 +1,151 @@
+For SQL Server, the correct keyword for unique results is DISTINCT. So explain it to beginners as:
+
+“When people say SELECT UNIQUE values in SQL Server, we normally use SELECT DISTINCT.”
+
+Keep this video focused only on SELECT DISTINCT / unique values.
+
+1. Select the database
+
+Start with:
+
+USE HealtchareDatabse;
+GO
+
+Explain:
+
+“First, I am telling SQL Server that all my queries should run against our healthcare training database.”
+
+2. Show the problem: duplicate values
+
+Run:
+
+SELECT CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Explain slowly:
+
+“I am selecting only the CountryOfBirth column from the Patient table. Because many patients can be born in the same country, the same country appears many times.”
+
+Example concept:
+
+Canada
+India
+Canada
+USA
+India
+Canada
+
+Tell viewers:
+
+“Sometimes I don't want every occurrence. I only want to know what different countries exist in my database.”
+
+3. Introduce DISTINCT
+
+Now run:
+
+SELECT DISTINCT CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Explain:
+
+SELECT          → Retrieve data
+DISTINCT        → Return only different/unique values
+CountryOfBirth  → Column I want
+FROM            → Where the data comes from
+dbo.Patient     → Patient table
+
+Then say:
+
+“DISTINCT removes duplicate values from the query result. It does not delete anything from the database.”
+
+That last sentence is important.
+
+4. Compare SELECT vs SELECT DISTINCT
+
+Without DISTINCT:
+
+SELECT CountryOfBirth
+FROM dbo.Patient;
+GO
+
+With DISTINCT:
+
+SELECT DISTINCT CountryOfBirth
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“The first query can show Canada hundreds of times if hundreds of patients were born in Canada. The second query shows Canada only once.”
+
+5. Try DISTINCT with Citizenship
+SELECT DISTINCT Citizenship
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“DISTINCT is not specific to countries. I can use it with other columns whenever I want to see the different values stored in that column.”
+
+6. Try DISTINCT with AgeGroup
+SELECT DISTINCT AgeGroup
+FROM dbo.Patient;
+GO
+
+This is a good healthcare example.
+
+You can explain:
+
+“Instead of looking through 1,200 patient records, I can immediately see which age-group categories exist in my database.”
+
+7. DISTINCT with multiple columns
+
+Now introduce this carefully:
+
+SELECT DISTINCT
+    CountryOfBirth,
+    Citizenship
+FROM dbo.Patient;
+GO
+
+Explain:
+
+“When DISTINCT is used with multiple columns, SQL looks at the complete combination of those columns.”
+
+For example:
+
+CountryOfBirth   Citizenship
+--------------   -----------
+India            Indian
+India            Canadian
+Canada           Canadian
+Canada           Indian
+
+All four can remain because each combination is different.
+
+This is an excellent point for beginners:
+
+“DISTINCT doesn't independently remove duplicates from each column. It removes duplicate combinations from the result.”
+
+8. Make the output easier to read
+
+Finish with:
+
+SELECT DISTINCT CountryOfBirth
+FROM dbo.Patient
+ORDER BY CountryOfBirth;
+GO
+
+You don't need to deeply teach ORDER BY yet.
+
+Just say:
+
+“I am adding ORDER BY only to display the countries alphabetically. We will explain ORDER BY properly in another video.”
+
+9. Final summary for the video
+
+You can summarize verbally:
+
+“SELECT retrieves data. DISTINCT tells SQL Server that I only want unique results. If Canada exists for 500 patients, SELECT can show Canada 500 times, but SELECT DISTINCT shows Canada only once. DISTINCT changes only the query result; it does not modify or delete patient records.”
