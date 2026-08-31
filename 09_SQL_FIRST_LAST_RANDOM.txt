@@ -1,0 +1,56 @@
+SQL IN HEALTHCARE - VIDEO 09
+SQL FIRST, LAST & RANDOM
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+In SQL Server there is no direct SELECT FIRST or SELECT LAST keyword. We define what first or last means with ORDER BY, use TOP (1) to return one row, and use ORDER BY NEWID() when we want a random training record.
+
+EXAMPLE 1 - First and last patient record
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Hospital Registration asks: How can I see the earliest patient record and the most recently created patient record?
+
+SQL ANSWER:
+-- Earliest patient
+SELECT TOP (1) PatientID, FirstName, LastName, CreatedAt
+FROM dbo.Patient
+ORDER BY CreatedAt ASC, PatientID ASC;
+
+-- Most recent patient
+SELECT TOP (1) PatientID, FirstName, LastName, CreatedAt
+FROM dbo.Patient
+ORDER BY CreatedAt DESC, PatientID DESC;
+
+WHY THIS WORKS:
+ASC places the oldest CreatedAt first; DESC places the newest first. TOP (1) returns only one row.
+
+REAL OFFICE USE:
+Registration or application support can quickly check the oldest or newest synthetic patient registration.
+
+EXAMPLE 2 - Random patient for QA
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+QA asks: Can you give me one random synthetic patient for a screen test?
+
+SQL ANSWER:
+SELECT TOP (1)
+    PatientID, FirstName, LastName, DateOfBirth, CountryOfBirth
+FROM dbo.Patient
+ORDER BY NEWID();
+
+WHY THIS WORKS:
+NEWID() changes the row order and TOP (1) returns one random patient.
+
+REAL OFFICE USE:
+Useful for demonstrations and QA testing when the specific synthetic patient does not matter.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

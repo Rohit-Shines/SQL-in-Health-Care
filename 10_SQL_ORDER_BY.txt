@@ -1,0 +1,51 @@
+SQL IN HEALTHCARE - VIDEO 10
+SQL ORDER BY
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+ORDER BY controls how SQL Server displays query results. ASC sorts from smaller/earlier/A-to-Z; DESC sorts from larger/later/Z-to-A.
+
+EXAMPLE 1 - Sort patient names A to Z
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Patient Registration asks: Can you show patient names alphabetically by last name?
+
+SQL ANSWER:
+SELECT TOP (20)
+    PatientID, FirstName, LastName
+FROM dbo.Patient
+ORDER BY LastName ASC, FirstName ASC;
+
+WHY THIS WORKS:
+ASC sorts LastName from A to Z. FirstName is used when two patients have the same last name.
+
+REAL OFFICE USE:
+Useful for registration lists, reports, and easy visual review.
+
+EXAMPLE 2 - Newest admissions first
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Hospital Operations asks: Can you show the most recent encounters at the top?
+
+SQL ANSWER:
+SELECT TOP (20)
+    EncounterID, VisitNumber, PatientID, AdmitDateTime
+FROM dbo.Encounter
+ORDER BY AdmitDateTime DESC;
+
+WHY THIS WORKS:
+DESC sorts the latest admission date/time before older encounters.
+
+REAL OFFICE USE:
+Useful for operational review and support checks of recent admissions.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

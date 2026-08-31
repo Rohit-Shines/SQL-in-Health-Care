@@ -1,0 +1,51 @@
+SQL IN HEALTHCARE - VIDEO 15
+SQL BETWEEN
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+BETWEEN filters values inside an inclusive range. The starting and ending values are both included.
+
+EXAMPLE 1 - Patients between ages 30 and 50
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+A hospital analyst asks: Show patients whose age is between 30 and 50.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, AgeYears
+FROM dbo.Patient
+WHERE AgeYears BETWEEN 30 AND 50;
+
+WHY THIS WORKS:
+BETWEEN includes AgeYears values from 30 through 50, including both 30 and 50.
+
+REAL OFFICE USE:
+Useful for age-range reports and simple cohort selection.
+
+EXAMPLE 2 - Patients born within a date range
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+A reporting analyst asks: Show patients born between January 1, 1980 and December 31, 1990.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, DateOfBirth
+FROM dbo.Patient
+WHERE DateOfBirth BETWEEN '1980-01-01' AND '1990-12-31';
+
+WHY THIS WORKS:
+The query returns dates inside the range and includes both boundary dates.
+
+REAL OFFICE USE:
+Useful for date-range reporting and validating historical patient demographics.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

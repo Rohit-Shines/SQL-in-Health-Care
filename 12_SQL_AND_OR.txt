@@ -1,0 +1,53 @@
+SQL IN HEALTHCARE - VIDEO 12
+SQL AND & OR
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+AND requires all conditions to be true. OR returns a row when at least one of the conditions is true.
+
+EXAMPLE 1 - AND - two conditions must match
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Population Health asks: Show patients born in India who are age 65 or older.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, AgeYears, CountryOfBirth
+FROM dbo.Patient
+WHERE CountryOfBirth = 'India'
+  AND AgeYears >= 65;
+
+WHY THIS WORKS:
+The row is returned only when both CountryOfBirth = India and AgeYears >= 65 are true.
+
+REAL OFFICE USE:
+Useful when a report needs several rules to be satisfied at the same time.
+
+EXAMPLE 2 - OR - either value can match
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+A demographic report asks: Show patients born in Canada or India.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, CountryOfBirth
+FROM dbo.Patient
+WHERE CountryOfBirth = 'Canada'
+   OR CountryOfBirth = 'India';
+
+WHY THIS WORKS:
+The row is returned when either country condition is true.
+
+REAL OFFICE USE:
+Useful when more than one acceptable value should be included in a report.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

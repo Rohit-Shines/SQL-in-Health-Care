@@ -1,0 +1,51 @@
+SQL IN HEALTHCARE - VIDEO 13
+SQL IN
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+IN is a clean way to test one column against several possible values. It often replaces a long series of OR conditions.
+
+EXAMPLE 1 - Patients from selected countries
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+A demographic report asks: Show patients born in India, Canada, or the USA.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, CountryOfBirth
+FROM dbo.Patient
+WHERE CountryOfBirth IN ('India', 'Canada', 'USA');
+
+WHY THIS WORKS:
+IN returns a row when CountryOfBirth matches any value in the list.
+
+REAL OFFICE USE:
+Useful when business users request several accepted values for the same field.
+
+EXAMPLE 2 - Messages from selected source systems
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Interface Support asks: Show messages coming from Epic or Cerner.
+
+SQL ANSWER:
+SELECT TOP (50)
+    InterfaceMessageID, MessageType, SourceSystem, ProcessingStatus
+FROM dbo.InterfaceMessage
+WHERE SourceSystem IN ('Epic', 'Cerner');
+
+WHY THIS WORKS:
+The query returns interface messages when SourceSystem is either Epic or Cerner.
+
+REAL OFFICE USE:
+Useful when an analyst wants to review a small group of sending systems.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

@@ -1,0 +1,51 @@
+SQL IN HEALTHCARE - VIDEO 14
+SQL LIKE
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+LIKE searches text patterns. The percent sign (%) is a wildcard that can represent zero or more characters.
+
+EXAMPLE 1 - Last names starting with S
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Patient Registration asks: Find patients whose last name starts with S.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, DateOfBirth
+FROM dbo.Patient
+WHERE LastName LIKE 'S%';
+
+WHY THIS WORKS:
+'S%' means the value starts with S and can contain any characters after it.
+
+REAL OFFICE USE:
+Useful for partial-name searches and registration demonstrations.
+
+EXAMPLE 2 - Find ADT interface channels
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Interface Support asks: Show interface messages where the channel name contains ADT.
+
+SQL ANSWER:
+SELECT TOP (50)
+    InterfaceMessageID, ChannelName, MessageType, ProcessingStatus
+FROM dbo.InterfaceMessage
+WHERE ChannelName LIKE '%ADT%';
+
+WHY THIS WORKS:
+'%ADT%' means ADT can appear anywhere inside ChannelName.
+
+REAL OFFICE USE:
+Useful when an analyst remembers only part of an interface or channel name.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.

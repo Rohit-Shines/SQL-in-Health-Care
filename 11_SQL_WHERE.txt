@@ -1,0 +1,51 @@
+SQL IN HEALTHCARE - VIDEO 11
+SQL WHERE
+=======================================================
+
+Database: HealtchareDatabse
+Table(s): shown in each example
+
+WHAT THIS MEANS
+---------------
+WHERE filters rows. SQL Server returns only records that meet the condition you specify.
+
+EXAMPLE 1 - Patients born in India
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Patient Registration asks: Show only patients whose CountryOfBirth is India.
+
+SQL ANSWER:
+SELECT
+    PatientID, FirstName, LastName, CountryOfBirth
+FROM dbo.Patient
+WHERE CountryOfBirth = 'India';
+
+WHY THIS WORKS:
+The WHERE condition keeps only rows where CountryOfBirth exactly equals India.
+
+REAL OFFICE USE:
+Useful for demographic reporting or validating a particular value in patient data.
+
+EXAMPLE 2 - Interface messages in error
+-------------------------------------------------------
+REAL-TIME HOSPITAL QUESTION:
+Interface Support asks: Show only messages currently in ERROR status.
+
+SQL ANSWER:
+SELECT TOP (50)
+    InterfaceMessageID, ChannelName, MessageType, ProcessingStatus
+FROM dbo.InterfaceMessage
+WHERE ProcessingStatus = 'ERROR';
+
+WHY THIS WORKS:
+Only interface rows whose ProcessingStatus equals ERROR are returned.
+
+REAL OFFICE USE:
+Common production-support pattern for locating failed interface messages.
+
+QUICK PRACTICE
+--------------
+1. Type Example 1 yourself in SSMS and run it.
+2. Change one value/column in Example 2 and compare the result.
+
+IMPORTANT: All patient and interface data in this course is synthetic. Do not use real PHI for practice.
